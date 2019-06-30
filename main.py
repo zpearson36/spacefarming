@@ -23,7 +23,7 @@ objs = []
 #objs.append(Planet(radius=25, density=.1, position=Position(width/5, height/5)))
 #objs.append(Planet(radius=25, density=.1, position=Position(width/2, height/2)))
 for _ in range(random.randint(1,10)):
-    radius = random.randint(5,50)
+    radius = random.randint(15,50)
     objs.append(Planet(radius=radius, density=random.random(), position=Position(random.randint(radius, width-radius),random.randint(radius, height-radius))))
 
 green = (0, 255, 0)
