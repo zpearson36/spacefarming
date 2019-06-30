@@ -19,12 +19,11 @@ screen = pygame.display.set_mode((width-50, height-50))
 pygame.display.set_caption("what it do, bitches!")
 
 objs = []
-#objs.append(Spaceship(radius=25, density=.001, position=Position(width/2, 100)))
-#objs.append(Planet(radius=25, density=.1, position=Position(width/5, height/5)))
-#objs.append(Planet(radius=25, density=.1, position=Position(width/2, height/2)))
-for _ in range(random.randint(1,10)):
-    radius = random.randint(15,50)
-    objs.append(Planet(radius=radius, density=random.random(), position=Position(random.randint(radius, width-radius),random.randint(radius, height-radius))))
+objs.append(Spaceship(radius=25, density=.1, position=Position(width/2, 100)))
+objs.append(Planet(radius=25000, density=.001, position=Position(width/2, 25500)))
+#for _ in range(random.randint(1,10)):
+#    radius = random.randint(5,150)
+#    objs.append(Planet(radius=radius, density=random.random(), position=Position(random.randint(radius, width-radius),random.randint(radius, height-radius))))
 
 green = (0, 255, 0)
 blue = (0, 0, 128)
@@ -54,8 +53,8 @@ while running:
         obj.display(screen)
         for obj2 in objs[i+1:]:
             force = Object.gravitational_force(obj, obj2)
-            force2 = font.render(f'Gravity: {force.magnitude}', True, green, blue)
-            angle = font.render(f'Angle: {force.angle}', True, green, blue)
+            force2 = font.render(f'Gravity: {objs[0].velocity.magnitude}', True, green, blue)
+            angle = font.render(f'Angle: {objs[1].velocity.magnitude}', True, green, blue)
             obj.update_velocity(Vector(force.magnitude/obj.mass, force.angle - .5 * math.pi))
             obj2.update_velocity(Vector(force.magnitude/obj2.mass, force.angle + .5 * math.pi))
             collide(obj, obj2)

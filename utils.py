@@ -86,9 +86,11 @@ def collide(p1, p2):
         p1.velocity = v1 + v2
         p2.velocity = v3 + v4
         elasticity =.5 
-        p1.velocity.magnitude *= elasticity
-        p2.velocity.magnitude *= elasticity
+        p1.velocity.magnitude = math.floor(p1.velocity.magnitude * elasticity)
+        p2.velocity.magnitude = math.floor(p2.velocity.magnitude * elasticity)
         
-        overlap = 0.5*(p1.radius + p2.radius - dist+1)
-        p1.position = Position(p1.position.x_pos + math.sin(angle)*overlap, p1.position.y_pos - math.cos(angle)*overlap)
-        p2.position = Position(p2.position.x_pos - math.sin(angle)*overlap, p2.position.y_pos + math.cos(angle)*overlap)
+        overlap_common = (p1.radius + p2.radius - dist+1)
+        overlap_1 = ((total_mass - p1.mass) / total_mass) * overlap_common
+        overlap_2 = ((total_mass - p2.mass) / total_mass) * overlap_common
+        p1.position = Position(p1.position.x_pos + math.sin(angle)*overlap_1, p1.position.y_pos - math.cos(angle)*overlap_1)
+        p2.position = Position(p2.position.x_pos - math.sin(angle)*overlap_2, p2.position.y_pos + math.cos(angle)*overlap_2)
