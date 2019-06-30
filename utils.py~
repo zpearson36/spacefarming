@@ -73,6 +73,6 @@ def collide(p1, p2):
 
         p1.velocity = v1 + v2
         p2.velocity = v3 + v4
-        elasticity = .001
+        elasticity = 0
         p1.velocity.magnitude *= elasticity
         p2.velocity.magnitude *= elasticity
