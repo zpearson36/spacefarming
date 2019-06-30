@@ -43,5 +43,5 @@ class Object:
         magnitude = (GRAVITAIONAL_CONSTANT * obj1.mass * obj2.mass) / obj1.position.distance(obj2.position)
         dx = obj1.position.x_pos - obj2.position.x_pos
         dy = obj1.position.y_pos - obj2.position.y_pos
-        angle = math.atan2(-dy, dx)
+        angle = math.atan2(dy, -dx)
         return Vector(magnitude, angle)
