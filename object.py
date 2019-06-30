@@ -11,7 +11,7 @@ class Object:
         self.__density = density
         self.position = position
         self.velocity = velocity
-        self.colour = colour
+        self.colour = (200 - 200*self.__density, 200 - 200*self.__density, 255)
 
     @property
     def area(self):
