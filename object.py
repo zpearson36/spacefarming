@@ -11,7 +11,7 @@ class Object:
         self.__density = density
         self.position = position
         self.velocity = velocity
-        self.colour = colour 
+        self.colour = colour
 
     @property
     def area(self):
@@ -26,10 +26,7 @@ class Object:
         return self.__radius
 
     def update_pos(self):
-        new_x = self.velocity.magnitude*math.sin(self.velocity.angle)
-        new_y = self.velocity.magnitude*math.cos(self.velocity.angle)
-        self.position = Position(self.position.x_pos + new_x,
-                                 self.position.y_pos + new_y)
+        pass
 
     def update_velocity(self, v2):
         self.velocity += v2

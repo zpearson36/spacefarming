@@ -58,6 +58,9 @@ class Vector:
     def __neg__(self):
         return Vector(self.magnitude, math.pi - self.angle)
 
+    def __sub__(self, v2):
+        return self + (-v2)
+
 def collide(p1, p2):
     dx = p1.position.x_pos - p2.position.x_pos
     dy = p1.position.y_pos - p2.position.y_pos

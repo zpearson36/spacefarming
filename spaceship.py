@@ -4,6 +4,7 @@ from object import Object
 class Spaceship(Object):
     def __init__(self, radius, density, position):
         Object.__init__(self, radius, density, position, colour=(255,0,0))
+        self.thrust=.5
 
     def display(self, screen):
         pygame.draw.rect(screen, self.colour, self.__get_rect_from_pos(), 0)

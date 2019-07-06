@@ -19,7 +19,8 @@ screen = pygame.display.set_mode((width-50, height-50))
 pygame.display.set_caption("what it do, bitches!")
 
 objs = []
-objs.append(Spaceship(radius=25, density=.1, position=Position(width/2, 100)))
+spaceship = Spaceship(radius=25, density=.1, position=Position(width/2, 100))
+objs.append(spaceship)
 objs.append(Planet(radius=25000, density=.001, position=Position(width/2, 25500)))
 #for _ in range(random.randint(1,10)):
 #    radius = random.randint(5,150)
@@ -42,12 +43,22 @@ angleRect.center = (100, 150)
 
 running = True
 while running:
+    thrust = Vector()
     screen.fill((255,255,255))
     screen.blit(force2, forceRect)
     screen.blit(angle, angleRect)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    if pygame.key.get_pressed()[pygame.K_UP]:
+        thrust += Vector(spaceship.thrust, math.pi)
+    if pygame.key.get_pressed()[pygame.K_RIGHT]:
+        thrust += Vector(spaceship.thrust, math.pi / 2)
+    if pygame.key.get_pressed()[pygame.K_LEFT]:
+        thrust += Vector(spaceship.thrust, 3 * math.pi / 2)
+    if pygame.key.get_pressed()[pygame.K_DOWN]:
+        thrust += Vector(spaceship.thrust, 0)
+    spaceship.update_velocity(thrust)
     for i, obj in enumerate(objs):
         obj.update_pos()
         obj.display(screen)
@@ -56,6 +67,6 @@ while running:
             force2 = font.render(f'Gravity: {objs[0].velocity.magnitude}', True, green, blue)
             angle = font.render(f'Angle: {objs[1].velocity.magnitude}', True, green, blue)
             obj.update_velocity(Vector(force.magnitude/obj.mass, force.angle - .5 * math.pi))
-            obj2.update_velocity(Vector(force.magnitude/obj2.mass, force.angle + .5 * math.pi))
+            obj2.update_velocity(Vector(force.magnitude/obj2.mass, force.angle + .5 * math.pi) - spaceship.velocity)
             collide(obj, obj2)
     pygame.display.flip()
