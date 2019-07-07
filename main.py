@@ -50,6 +50,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                thrust -= Vector(spaceship.thrust, 3 * math.pi / 2)
+            if event.key == pygame.K_RIGHT:
+                thrust -= Vector(spaceship.thrust, math.pi / 2)
+            if event.key == pygame.K_UP:
+                thrust -= Vector(spaceship.thrust, math.pi)
+            if event.key == pygame.K_DOWN:
+                thrust -= Vector(spaceship.thrust, 0)
     if pygame.key.get_pressed()[pygame.K_UP]:
         thrust += Vector(spaceship.thrust, math.pi)
     if pygame.key.get_pressed()[pygame.K_RIGHT]:
@@ -60,13 +69,15 @@ while running:
         thrust += Vector(spaceship.thrust, 0)
     spaceship.update_velocity(thrust)
     for i, obj in enumerate(objs):
-        obj.update_pos()
-        obj.display(screen)
         for obj2 in objs[i+1:]:
             force = Object.gravitational_force(obj, obj2)
-            force2 = font.render(f'Gravity: {objs[0].velocity.magnitude}', True, green, blue)
-            angle = font.render(f'Angle: {objs[1].velocity.magnitude}', True, green, blue)
-            obj.update_velocity(Vector(force.magnitude/obj.mass, force.angle - .5 * math.pi))
-            obj2.update_velocity(Vector(force.magnitude/obj2.mass, force.angle + .5 * math.pi) - spaceship.velocity)
+            force2 = font.render(f'spaceship: {objs[0].velocity.magnitude}', True, green, blue)
+            angle = font.render(f'planet: {objs[1].velocity.magnitude}', True, green, blue)
+            if obj.__class__.__name__ != spaceship.__class__.__name__:
+                obj.update_velocity(Vector(force.magnitude/obj.mass, force.angle - .5 * math.pi))
+            if obj2.__class__.__name__ != spaceship.__class__.__name__:
+                obj2.update_velocity(Vector(force.magnitude/obj2.mass, force.angle + .5 * math.pi) - spaceship.velocity)
             collide(obj, obj2)
+        obj.update_pos()
+        obj.display(screen)
     pygame.display.flip()

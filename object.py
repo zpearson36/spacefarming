@@ -3,7 +3,7 @@ from abc import abstractmethod
 
 from utils import Vector, Position
 
-GRAVITAIONAL_CONSTANT = .001
+GRAVITAIONAL_CONSTANT = .1
 
 class Object:
     def __init__(self, radius, density, position, velocity=Vector(), colour=(0,0,255)):

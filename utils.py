@@ -88,7 +88,7 @@ def collide(p1, p2):
 
         p1.velocity = v1 + v2
         p2.velocity = v3 + v4
-        elasticity =.5 
+        elasticity = .1 
         p1.velocity.magnitude = math.floor(p1.velocity.magnitude * elasticity)
         p2.velocity.magnitude = math.floor(p2.velocity.magnitude * elasticity)
         
