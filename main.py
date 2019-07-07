@@ -19,8 +19,8 @@ screen = pygame.display.set_mode((width-50, height-50))
 pygame.display.set_caption("what it do, bitches!")
 
 objs = []
-objs.append(Spaceship(radius=25, density=.1, position=Position(width/2, 100)))
-objs.append(Planet(radius=25000, density=.001, position=Position(width/2, 25500)))
+ss = Spaceship(radius=25, density=.1, position=Position(width/2, height/2 - 25))
+objs.append(Planet(radius=25000, density=.001, position=Position(width/2, 25500 + height/25)))
 #for _ in range(random.randint(1,10)):
 #    radius = random.randint(5,150)
 #    objs.append(Planet(radius=radius, density=random.random(), position=Position(random.randint(radius, width-radius),random.randint(radius, height-radius))))
@@ -48,6 +48,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    ss.display(screen)
     for i, obj in enumerate(objs):
         obj.update_pos()
         obj.display(screen)
